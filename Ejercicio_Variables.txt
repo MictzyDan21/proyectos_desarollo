@@ -1,0 +1,26 @@
+fun main() {
+    
+    var num_gatitos: Int = 4;
+    var nombre_perrito: String = "Firulais";
+    var cotorro_existe: Boolean = true;
+    var conejo_cocinado: Double = 5.6;
+    var pollo_boneless: Float = 3.50;
+    
+    val num_bananas = 3;
+    val manzana_cortada = 4.5;
+    val sandia_color= "Rojo";
+    val fresa_es_una_fruta = true;
+    val duraznos_en_rebanadas = 3.5;
+    
+    const num_zanahorias: Int = 6;
+    const lechuga_color: String = "Verde";
+    const brocoli_sabe_rico: Boolean = false;
+    const rebanadas_pepino: Double = 1.5;
+    const cantidad_cebollas: Int? = null;
+    
+    const celulares = 3;
+    const color_computadora = "Negra";
+    const telefono_suena = false;
+    const mouse_roto = true;
+    const respuesta_calculadora = 4.6666;
+}
