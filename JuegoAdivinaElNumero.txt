@@ -1,0 +1,51 @@
+import kotlin.random.Random
+
+fun main() {
+    println("Bienvenido. En este juego se te asignará un número aleatorio del 0 al 100 y tienes que adivinar " +
+            "cuál número es.");
+    println("Tienes 5 intentos para adivinar. Si se te acaban, pierdes.");
+
+    adivinar();
+}
+
+fun adivinar() {
+    val numero_correcto = Random.nextInt(1, 101);
+    var numero_intentos = 5;
+    var numero_entrada:String?;
+    var numero_entrada_correcta:Int?;
+    
+
+    while (numero_intentos > 0) {
+        
+        println("Ingresa un número entre 1 y 100:");
+        
+        numero_entrada = readlnOrNull();
+
+        if (numero_entrada == null) {
+            println("No insertaste un numero, babai");
+            return;
+        }
+        
+        numero_entrada_correcta = numero_entrada.toIntOrNull();
+       
+       	if (numero_entrada_correcta == null || numero_entrada_correcta < 1 || numero_entrada_correcta > 100) {
+            println("Número inválido. Intenta con un número entre 1 y 100.")
+            continue
+        }
+
+        if (numero_entrada_correcta == numero_correcto) {
+            println("¡Correcto! Has adivinado el número con $numero_intentos intentos.");
+            return
+            
+        } else if (numero_entrada_correcta < numero_correcto) {
+            println("El número correcto es mayor.")
+        } else {
+            println("El número correcto es menor.")
+        }
+
+        numero_intentos--;
+        println("Te quedan $numero_intentos intentos.");
+    }
+
+    println("Has perdido. El número era $numero_correcto.");
+}
