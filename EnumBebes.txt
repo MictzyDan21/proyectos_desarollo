@@ -1,0 +1,234 @@
+enum class EstadosBebes{
+    despierto,
+    llorando,
+    dormido,
+    comiendo,
+    cagado, 
+    viendo_paw_patrol,
+    corriendo,
+    tieso
+}
+ 
+class Bebe(
+    var nombre: String,
+    var hambre: Int,
+    var p_lleno: Int,
+    var sueno: Int,
+    var estado: EstadosBebes = EstadosBebes.despierto,
+)
+    {
+        fun alimentar()
+        {
+           if (estado == EstadosBebes.tieso){
+               println("No mames wey ya está tieso")
+           }
+           else{
+               estado = EstadosBebes.comiendo
+               if(p_lleno >= 70){
+                   estado = EstadosBebes.cagado
+               }
+               
+           }
+           
+           
+        }
+        fun dormir()
+        {
+            if ((estado == EstadosBebes.despierto || estado == EstadosBebes.comiendo) && sueno > 49 ){
+                sueno = 0
+                estado = EstadosBebes.dormido
+            }
+            else if(estado == EstadosBebes.tieso){
+                println("Si we, ya está mimido pa siempre")
+            }
+            else{
+                println("Nel wey, todavía no lo puedes dormir")
+            }
+        }
+        fun despertar()
+        {
+            if (estado == EstadosBebes.dormido){
+                estado = EstadosBebes.despierto
+            }
+            else if(estado == EstadosBebes.tieso){
+                println("No lo puedes despertar, se te murió no la chingues")
+            }
+            
+        }
+        fun despertar_con_agua()
+        {
+            if (estado == EstadosBebes.dormido){
+                estado = EstadosBebes.tieso
+            }
+        }
+        
+        fun ejercicio(){
+            
+            if (estado == EstadosBebes.tieso){
+               println("No mames wey ya está tieso")
+           }
+            else if (sueno <= 20 && hambre <= 20 && p_lleno <= 20){
+                estado = EstadosBebes.corriendo
+            }
+            else{
+                println("No seas mamón, el bebe ta cansao")
+            }
+        }
+        
+        fun entretener_chamaco(){
+            if (estado == EstadosBebes.tieso){
+               println("No mames wey ya está tieso")
+           }
+            else if (estado == EstadosBebes.dormido){
+                estado = EstadosBebes.despierto
+            }
+            estado = EstadosBebes.viendo_paw_patrol
+            
+            
+        }
+        
+        fun apagar_tele(){
+            estado = EstadosBebes.llorando
+        }
+        
+        fun cambiar_pañal(){
+            
+            if(estado == EstadosBebes.cagado){
+                p_lleno = 0
+            }
+        }
+        
+        
+        
+        
+        
+        fun actualizar_estado()
+        {
+            when(estado){
+                EstadosBebes.despierto -> {
+                sueno += 5
+                hambre += 5
+                p_lleno =+ 3
+                }
+                EstadosBebes.comiendo ->{
+                    hambre -= 40
+                    p_lleno += 10
+                }
+                EstadosBebes.viendo_paw_patrol -> {
+                    sueno += 10
+                    hambre += 15
+                    p_lleno += 10
+                }
+                EstadosBebes.llorando ->{
+                    sueno += 5
+                    hambre += 5
+                }
+                EstadosBebes.cagado ->{
+                    sueno -= 10
+                }
+                EstadosBebes.dormido ->{
+                    hambre += 5
+                }
+                EstadosBebes.tieso ->{
+                    hambre = 51
+                    sueno = 51
+                    p_lleno = 51
+                }
+                EstadosBebes.corriendo ->{
+                    hambre += 20
+                    sueno += 20
+                }
+                 else -> {
+                }
+            }
+
+        }
+        fun picar_con_palo(): String{
+            return estado_actual()
+        }
+        fun estado_actual(): String{
+            when(estado)
+            {
+                EstadosBebes.despierto -> {
+                    return "esta despierto"
+                }
+                EstadosBebes.tieso -> {
+                    return "Está ya bien tieso, tiralo ahí por la alcantarilla"
+                }
+                EstadosBebes.dormido -> {
+                    return "Está mimido"
+                }
+                EstadosBebes.comiendo -> {
+                    return "Esta comiendo"
+                }
+                EstadosBebes.llorando ->{
+                    return "Está llorando el pinche nene echale un putazo"
+                }
+                EstadosBebes.viendo_paw_patrol ->{
+                    return "Anda viendo Paw Patrol"
+                }
+                EstadosBebes.cagado ->{
+                    return "está bien cagado, cambialo"
+                }
+                EstadosBebes.corriendo ->{
+                    return "poniendose a bajar de peso el gordo"
+                }
+                else ->{
+                    return "No se identifica el estado"
+                }
+               
+            }
+
+        }
+    }
+fun main(){
+     val JackieChan = Bebe("Jackie Chan", 50, 10, 70)
+     val Juan = Bebe("Juan", 10, 10, 10)
+     val Junior = Bebe ("Junior", 0, 0, 0)
+    JackieChan.actualizar_estado()
+    Juan.actualizar_estado()
+    Junior.actualizar_estado()
+    
+    println("El estado del ${JackieChan.nombre} es ${JackieChan.estado_actual()}")
+    JackieChan.alimentar()
+    println("El estado del ${JackieChan.nombre} es ${JackieChan.estado_actual()}")
+    JackieChan.entretener_chamaco()
+    println("El estado del ${JackieChan.nombre} es ${JackieChan.estado_actual()}")
+    JackieChan.dormir()
+    println("El estado del ${JackieChan.nombre} es ${JackieChan.estado_actual()}")
+    JackieChan.despertar_con_agua()
+    println("El estado del ${JackieChan.nombre} es ${JackieChan.estado_actual()}")
+    JackieChan.alimentar()
+    println("El estado del ${JackieChan.nombre} es ${JackieChan.estado_actual()}")
+    JackieChan.dormir()
+    JackieChan.actualizar_estado()
+    println("Ya se te murió el bebé Jackie Chan")
+    
+    println("El estado del ${Juan.nombre} es ${Juan.estado_actual()}")
+    Juan.alimentar()
+    println("El estado del ${Juan.nombre} es ${Juan.estado_actual()}")
+    Juan.entretener_chamaco()
+    println("El estado del ${Juan.nombre} es ${Juan.estado_actual()}")
+    Juan.apagar_tele()
+    println("El estado del ${Juan.nombre} es ${Juan.estado_actual()}")
+    Juan.alimentar()
+    println("El estado del ${Juan.nombre} es ${Juan.estado_actual()}")
+    Juan.dormir()
+    
+    
+    
+    println("El estado del ${Junior.nombre} es ${Junior.estado_actual()}")
+    Junior.dormir()
+    println("El estado del ${Junior.nombre} es ${Junior.estado_actual()}")
+    Junior.despertar()
+    println("El estado del ${Junior.nombre} es ${Junior.estado_actual()}")
+    Junior.alimentar()
+    println("El estado del ${Junior.nombre} es ${Junior.estado_actual()}")
+    Junior.entretener_chamaco()
+    println("El estado del ${Junior.nombre} es ${Junior.estado_actual()}")
+    Junior.apagar_tele()
+    println("El estado del ${Junior.nombre} es ${Junior.estado_actual()}")
+    Junior.ejercicio()
+    println("El estado del ${Junior.nombre} es ${Junior.estado_actual()}")
+    
+}
