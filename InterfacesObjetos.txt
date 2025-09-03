@@ -1,0 +1,136 @@
+interface Habilidad{
+    var nombre: String
+    var activo: Boolean
+    var desc: String?
+    fun activar(): Boolean{
+        if (activo){
+            return false
+        }
+        else{
+            activo = true
+            return true
+        }
+    }
+    fun desactivar(): Boolean{
+        if(!activo){
+            return false
+        }
+        else{
+            activo = false
+            return true
+        }
+    }
+}
+ 
+interface Habilidades{
+    var capacidades: MutableList<Habilidad>
+    
+    fun activar_capacidad(nombre: String): Boolean{
+        for (capacidad in capacidades){
+            if (capacidad.nombre == nombre){
+                return capacidad.activar()
+            }
+        }
+        return false
+    }
+    fun agregar_capacidad(capacidad_nueva: Habilidad){
+        capacidades.add(capacidad_nueva)
+    }
+    fun desc(): String{
+        var lista_capacidades = "${capacidades.size}: "
+
+        for(capacidad in capacidades){
+            lista_capacidades = "${lista_capacidades}, ${capacidad.nombre}"
+        }
+         return lista_capacidades
+    }
+}
+
+interface Inventario{
+    var cantidad: Int
+    var lleno: Boolean
+    fun in_lleno(): Boolean{
+        if (lleno){
+            return false
+        }
+        else{
+            lleno = true
+            return true
+        }
+    }
+}
+
+class InventarioL
+(override var cantidad: Int,
+override var lleno: Boolean): Inventario{
+    
+}
+ 
+interface Arma{
+    var nombre_a: String
+    var tipo: String?
+    var ataque: Int
+}
+ 
+interface Armas{
+    var las_armas: MutableList<Arma>
+    
+    fun asignar_arma(arma_nueva: Arma){
+        las_armas.add(arma_nueva)
+    }
+    fun descripcion():String{
+        var cant_armas = "${las_armas.size}:"
+        for(arma in las_armas){
+            cant_armas= "${cant_armas}"
+        }
+        return cant_armas
+    }
+}
+
+class ArmasClass(
+    override var nombre_a: String,
+    override var tipo: String?,
+    override var ataque: Int
+): Arma{
+}
+ 
+class SuperPoder(
+    override var nombre: String,
+    override var activo: Boolean,
+    override var desc: String?
+): Habilidad{
+ 
+    
+}
+ 
+class Bebe(): Armas{
+    override var las_armas: MutableList<Arma> = mutableListOf()
+}
+ 
+class Zorro():Habilidades, Armas{
+    override var capacidades: MutableList<Habilidad> = mutableListOf()
+    override var las_armas: MutableList<Arma> = mutableListOf()
+}
+ 
+fun main(){
+    val poder = SuperPoder ("Rayos Laser", true, "Entidad con rashos laser")
+    val poder2 = SuperPoder("Volar", true, "Pues vuela a la berga")
+    val poder3 = SuperPoder("Superfuerza", true, "Tiene un vergal de fuerza")
+    val arma1 = ArmasClass("Espada", "Cortante", 10)
+    val arma2= ArmasClass("Pistola", "Distancia", 50)
+    val inventario1 = InventarioL(10, false)
+    val inventario2 = InventarioL(14, false)
+ 
+    val bebe = Bebe()
+    val zorrito = Zorro()
+    bebe.asignar_arma(arma1)
+    zorrito.asignar_arma(arma2)
+    zorrito.agregar_capacidad(poder)
+    zorrito.agregar_capacidad(poder2)
+    zorrito.agregar_capacidad(poder3)
+
+    println("El bebe tiene armas, que son ${bebe.descripcion()}, una ${arma1.nombre_a} y tiene ${inventario1.cantidad} items en el inventario")
+    println("Los poderes del zorro son ${zorrito.desc()} y tiene ${inventario1.cantidad} items " +
+    "en el inventario. También tiene ${zorrito.descripcion()} arma, la cual es ${arma2.nombre_a} que hace ${arma2.ataque}"+
+    " de daño")
+}
